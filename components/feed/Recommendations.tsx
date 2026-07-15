@@ -142,7 +142,7 @@ export function Recommendations() {
             Terms
           </Link>
         </p>
-        <p className="font-medium">© 2024 OpenTruth</p>
+        <p className="font-medium">© 2026 OpenTruth</p>
       </motion.div>
     </div>
   )

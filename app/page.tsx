@@ -248,7 +248,7 @@ export default function HomePage() {
         viewport={{ once: true }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-slate-600 dark:text-slate-400">
-          <p className="font-medium">&copy; 2024 OpenTruth. A decentralized social network powered by Web3.</p>
+          <p className="font-medium">&copy; 2026 OpenTruth. A decentralized social network powered by Web3.</p>
         </div>
       </motion.footer>
     </main>

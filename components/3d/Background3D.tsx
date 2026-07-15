@@ -1,9 +1,8 @@
 'use client'
 
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Points, PointMaterial } from '@react-three/drei'
-import { inSphere } from 'maath/random'
-import { useRef, useMemo, useEffect, useState } from 'react'
+import { Stars } from '@react-three/drei'
+import { useRef, useEffect, useState } from 'react'
 import * as THREE from 'three'
 
 export function Background3D() {
@@ -31,32 +30,26 @@ export function Background3D() {
 }
 
 function AnimatedBackground() {
-  const pointsRef = useRef<THREE.Points>(null)
-  const particles = useMemo(
-    () =>
-      inSphere(new Float32Array(5000), { radius: 1.2 }),
-    []
-  )
+  const starsRef = useRef<THREE.Group>(null)
 
   useFrame((state, delta) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.x -= delta / 10
-      pointsRef.current.rotation.y -= delta / 15
+    if (starsRef.current) {
+      starsRef.current.rotation.x -= delta / 10
+      starsRef.current.rotation.y -= delta / 15
     }
   })
 
   return (
-    <>
-      <Points ref={pointsRef} positions={particles} stride={3} frustumCulled>
-        <PointMaterial
-          transparent
-          color="#2563eb"
-          size={0.002}
-          sizeAttenuation
-          depthWrite={false}
-          opacity={0.3}
-        />
-      </Points>
-    </>
+    <Stars
+      ref={starsRef}
+      radius={100}
+      depth={50}
+      count={5000}
+      factor={4}
+      saturation={0}
+      fade
+      speed={1}
+      color="#2563eb"
+    />
   )
 }
