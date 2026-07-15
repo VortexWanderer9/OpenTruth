@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { Users, TrendingUp, Zap } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const RECOMMENDED_USERS = [
   {
@@ -36,43 +37,62 @@ const TRENDING_TOPICS = [
 
 export function Recommendations() {
   return (
-    <div className="h-screen flex flex-col sticky top-0">
+    <div className="h-full flex flex-col sticky top-0">
       {/* Trending Section */}
-      <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.1 }}
+        className="p-5 border-b border-border"
+      >
         <div className="flex items-center gap-2 mb-4">
-          <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-          <h3 className="font-bold text-slate-900 dark:text-white">Trending</h3>
+          <TrendingUp className="w-5 h-5 text-primary" />
+          <h3 className="font-semibold text-foreground text-lg">Trending</h3>
         </div>
 
         <div className="space-y-3">
-          {TRENDING_TOPICS.map((topic) => (
-            <Link
+          {TRENDING_TOPICS.map((topic, index) => (
+            <motion.div
               key={topic.tag}
-              href={`/search?q=${topic.tag}`}
-              className="block p-3 hover:bg-slate-100 dark:hover:bg-slate-700/50 rounded transition"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 + index * 0.05 }}
             >
-              <p className="font-semibold text-slate-900 dark:text-white">{topic.tag}</p>
-              <p className="text-xs text-slate-600 dark:text-slate-400">{topic.posts.toLocaleString()} posts</p>
-            </Link>
+              <Link
+                href={`/search?q=${topic.tag}`}
+                className="block p-3 rounded-xl hover:bg-muted/60 transition-colors"
+              >
+                <p className="font-semibold text-foreground">{topic.tag}</p>
+                <p className="text-xs text-muted-foreground">{topic.posts.toLocaleString()} posts</p>
+              </Link>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Recommended Users */}
-      <div className="p-4 border-b border-slate-200 dark:border-slate-700 flex-1 overflow-auto">
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2 }}
+        className="p-5 border-b border-border flex-1 overflow-auto"
+      >
         <div className="flex items-center gap-2 mb-4">
-          <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-          <h3 className="font-bold text-slate-900 dark:text-white">Recommended</h3>
+          <Users className="w-5 h-5 text-primary" />
+          <h3 className="font-semibold text-foreground text-lg">Recommended</h3>
         </div>
 
         <div className="space-y-3">
-          {RECOMMENDED_USERS.map((user) => (
-            <div
+          {RECOMMENDED_USERS.map((user, index) => (
+            <motion.div
               key={user.id}
-              className="p-3 bg-slate-50 dark:bg-slate-700/50 rounded hover:bg-slate-100 dark:hover:bg-slate-600/50 transition"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 + index * 0.05 }}
+              className="p-3.5 bg-muted/30 rounded-xl hover:bg-muted/60 transition-colors"
             >
               <div className="flex items-center justify-between mb-2">
-                <Link href={`/profile/${user.id}`} className="font-semibold text-slate-900 dark:text-white hover:underline">
+                <Link href={`/profile/${user.id}`} className="font-semibold text-foreground hover:underline hover:text-primary transition-colors">
                   {user.displayName}
                 </Link>
                 {user.tier > 0 && (
@@ -83,38 +103,47 @@ export function Recommendations() {
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">@{user.username}</p>
+              <p className="text-xs text-muted-foreground mb-2">@{user.username}</p>
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400">
-                  <Zap className="w-3 h-3" />
-                  <span>{user.reputationScore} rep</span>
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <Zap className="w-3.5 h-3.5" />
+                  <span>{user.reputationScore.toLocaleString()} rep</span>
                 </div>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-full text-xs font-semibold transition">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-primary hover:bg-primary/90 text-white px-4 py-1.5 rounded-full text-xs font-semibold transition-all shadow-soft-sm hover:shadow-soft-md"
+                >
                   Follow
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Footer Links */}
-      <div className="p-4 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-400 space-y-2">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+        className="p-5 border-t border-border text-xs text-muted-foreground space-y-2"
+      >
         <p>
-          <Link href="/about" className="hover:underline">
+          <Link href="/about" className="hover:underline hover:text-foreground transition-colors">
             About
           </Link>
           {' · '}
-          <Link href="/help" className="hover:underline">
+          <Link href="/help" className="hover:underline hover:text-foreground transition-colors">
             Help
           </Link>
           {' · '}
-          <Link href="/tos" className="hover:underline">
+          <Link href="/tos" className="hover:underline hover:text-foreground transition-colors">
             Terms
           </Link>
         </p>
-        <p>© 2024 OpenTruth</p>
-      </div>
+        <p className="font-medium">© 2024 OpenTruth</p>
+      </motion.div>
     </div>
   )
 }

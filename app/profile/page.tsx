@@ -3,6 +3,7 @@
 import { useAccount } from 'wagmi'
 import { redirect } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import { Mail, MapPin, Link as LinkIcon, Zap, TrendingUp } from 'lucide-react'
 
 export default function ProfilePage() {
@@ -18,8 +19,12 @@ export default function ProfilePage() {
 
   if (isLoading) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="w-full h-screen flex items-center justify-center bg-background">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full"
+        />
       </div>
     )
   }
@@ -40,60 +45,88 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="border-b border-slate-200 dark:border-slate-700 sticky top-0 z-10 bg-white dark:bg-slate-900 bg-opacity-80 dark:bg-opacity-80 backdrop-blur">
-        <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-slate-900 dark:text-white">Profile</h1>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-semibold transition">
+      <nav className="border-b border-border sticky top-0 z-10 bg-background/80 backdrop-blur-xl">
+        <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+          <h1 className="text-xl font-bold text-foreground">Profile</h1>
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-full font-semibold transition-all shadow-soft-sm"
+          >
             Edit Profile
-          </button>
+          </motion.button>
         </div>
       </nav>
 
       {/* Header */}
-      <div className="border-b border-slate-200 dark:border-slate-700">
+      <div className="border-b border-border">
         {/* Cover Image */}
-        <div className="h-48 bg-gradient-to-r from-blue-400 to-indigo-600"></div>
+        <div className="h-48 bg-gradient-to-r from-primary/40 to-indigo-600/40" />
 
         {/* Profile Section */}
-        <div className="max-w-2xl mx-auto px-4 pb-6">
+        <div className="max-w-3xl mx-auto px-6 pb-6">
           {/* Avatar */}
           <div className="flex justify-between items-start -mt-16 mb-4">
-            <div className="w-32 h-32 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full border-4 border-white dark:border-slate-900 flex items-center justify-center">
-              <span className="text-6xl text-white font-bold">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="w-32 h-32 bg-gradient-to-br from-primary to-indigo-600 rounded-full border-4 border-background flex items-center justify-center shadow-soft-lg"
+            >
+              <span className="text-5xl text-white font-bold">
                 {user.displayName.charAt(0).toUpperCase()}
               </span>
-            </div>
+            </motion.div>
             <div className="flex gap-2 mt-4">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-semibold transition">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-full font-semibold transition-all shadow-soft-sm"
+              >
                 Follow
-              </button>
-              <button className="border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white px-6 py-2 rounded-full font-semibold transition">
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="border border-border hover:bg-muted/50 text-foreground px-6 py-2 rounded-full font-semibold transition-all"
+              >
                 Message
-              </button>
+              </motion.button>
             </div>
           </div>
 
           {/* Info */}
-          <div className="mb-6">
-            <div className="mb-2">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mb-6 space-y-3"
+          >
+            <div className="flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-foreground">
                 {user.displayName}
-                {user.tier > 0 && <span className="ml-2">{user.tier === 1 ? '🥉' : user.tier === 2 ? '🥈' : '🥇'}</span>}
+                {user.tier > 0 && (
+                  <span className="ml-2">
+                    {user.tier === 1 && '🥉'}
+                    {user.tier === 2 && '🥈'}
+                    {user.tier === 3 && '🥇'}
+                  </span>
+                )}
               </h2>
-              <p className="text-slate-600 dark:text-slate-400">@{user.username}</p>
             </div>
+            <p className="text-muted-foreground">@{user.username}</p>
 
-            <p className="text-slate-900 dark:text-white mb-4">{user.bio}</p>
+            <p className="text-foreground">{user.bio}</p>
 
             {/* Details */}
-            <div className="flex flex-wrap gap-4 text-sm text-slate-600 dark:text-slate-400 mb-4">
-              <div className="flex items-center gap-1">
+            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
                 {user.location}
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-2">
                 <LinkIcon className="w-4 h-4" />
                 {user.website}
               </div>
@@ -101,39 +134,41 @@ export default function ProfilePage() {
             </div>
 
             {/* Stats */}
-            <div className="flex gap-6 mb-4">
-              <div>
-                <div className="font-bold text-slate-900 dark:text-white">{user.following}</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">Following</div>
+            <div className="flex gap-8">
+              <div className="cursor-pointer hover:text-primary transition-colors">
+                <div className="font-bold text-foreground">{user.following}</div>
+                <div className="text-sm text-muted-foreground">Following</div>
               </div>
-              <div>
-                <div className="font-bold text-slate-900 dark:text-white">{user.followers}</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">Followers</div>
+              <div className="cursor-pointer hover:text-primary transition-colors">
+                <div className="font-bold text-foreground">{user.followers}</div>
+                <div className="text-sm text-muted-foreground">Followers</div>
               </div>
-              <div>
-                <div className="font-bold text-slate-900 dark:text-white">{user.posts}</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">Posts</div>
+              <div className="cursor-pointer hover:text-primary transition-colors">
+                <div className="font-bold text-foreground">{user.posts}</div>
+                <div className="text-sm text-muted-foreground">Posts</div>
               </div>
             </div>
 
             {/* Reputation */}
-            <div className="flex items-center gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-900">
+            <div className="flex items-center gap-4 p-4 bg-primary/5 rounded-xl border border-primary/20">
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{user.reputationScore}</span>
+                <TrendingUp className="w-5 h-5 text-primary" />
+                <span className="text-lg font-bold text-primary">{user.reputationScore.toLocaleString()}</span>
               </div>
               <div>
-                <p className="font-semibold text-slate-900 dark:text-white">Reputation Score</p>
-                <p className="text-xs text-slate-600 dark:text-slate-400">Tier {user.tier}: {user.tier === 1 ? 'Engaged' : user.tier === 2 ? 'Trusted' : 'Expert'}</p>
+                <p className="font-semibold text-foreground">Reputation Score</p>
+                <p className="text-xs text-muted-foreground">
+                  Tier {user.tier}: {user.tier === 1 ? 'Engaged' : user.tier === 2 ? 'Trusted' : 'Expert'}
+                </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Posts */}
-      <div className="max-w-2xl mx-auto border-b border-slate-200 dark:border-slate-700 p-4 text-center text-slate-600 dark:text-slate-400">
-        <p>User&apos;s posts will appear here</p>
+      <div className="max-w-3xl mx-auto border-b border-border p-6 text-center text-muted-foreground">
+        <p>User's posts will appear here</p>
       </div>
     </div>
   )

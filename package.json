@@ -30,6 +30,7 @@
     "next": "16.2.6",
     "next-auth": "^4.24.14",
     "pg": "^8.22.0",
+    "postgres": "^3.4.9",
     "react": "^19",
     "react-dom": "^19",
     "recharts": "^3.9.2",

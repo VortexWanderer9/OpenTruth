@@ -48,7 +48,7 @@ const investigations = [
 
 export default function InvestigationsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 p-6">
+    <div className="min-h-screen bg-background p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -56,10 +56,10 @@ export default function InvestigationsPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
             Investigations
           </h1>
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-muted-foreground">
             Community-driven fact-checking and investigations
           </p>
         </motion.div>
@@ -122,14 +122,14 @@ export default function InvestigationsPage() {
               variants={itemVariants}
               transition={{ delay: index * 0.05 }}
             >
-              <GlassCard className="overflow-hidden flex flex-col h-full cursor-pointer hover:bg-white/80 dark:hover:bg-slate-800/80">
+              <GlassCard className="overflow-hidden flex flex-col h-full cursor-pointer hover:bg-white/80">
                 {/* Status Badge */}
                 <div className="flex items-center justify-between mb-4">
                   <span
                     className={`text-xs font-bold px-3 py-1 rounded-full ${
                       investigation.status === 'active'
-                        ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600'
-                        : 'bg-green-100 dark:bg-green-900/30 text-green-600'
+                        ? 'bg-blue-50 text-blue-700 border border-blue-100'
+                        : 'bg-green-50 text-green-700 border border-green-100'
                     }`}
                   >
                     {investigation.status === 'active' ? 'Active' : 'Completed'}
@@ -137,29 +137,29 @@ export default function InvestigationsPage() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-foreground mb-4">
                   {investigation.title}
                 </h3>
 
                 {/* Stats */}
                 <div className="grid grid-cols-3 gap-2 mb-4 text-center">
-                  <div className="p-2 bg-white/50 dark:bg-slate-800/50 rounded-lg">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                  <div className="p-3 bg-muted/30 rounded-xl border border-border">
+                    <p className="text-sm font-semibold text-foreground">
                       {investigation.contributorsCount}
                     </p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Contributors</p>
+                    <p className="text-xs text-muted-foreground">Contributors</p>
                   </div>
-                  <div className="p-2 bg-white/50 dark:bg-slate-800/50 rounded-lg">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                  <div className="p-3 bg-muted/30 rounded-xl border border-border">
+                    <p className="text-sm font-semibold text-foreground">
                       {investigation.notesCount}
                     </p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Notes</p>
+                    <p className="text-xs text-muted-foreground">Notes</p>
                   </div>
-                  <div className="p-2 bg-white/50 dark:bg-slate-800/50 rounded-lg">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                  <div className="p-3 bg-muted/30 rounded-xl border border-border">
+                    <p className="text-sm font-semibold text-foreground">
                       {(investigation.helpfulVotes / 1000).toFixed(1)}K
                     </p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Helpful</p>
+                    <p className="text-xs text-muted-foreground">Helpful</p>
                   </div>
                 </div>
 

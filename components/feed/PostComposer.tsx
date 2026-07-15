@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import { useAccount } from 'wagmi'
-import { Heart, MessageCircle, Share2, Image as ImageIcon } from 'lucide-react'
+import { Heart, Image as ImageIcon } from 'lucide-react'
 import { uploadPostContent } from '@/lib/web3/ipfs'
 import { Button } from '@/components/ui/button'
+import { motion } from 'framer-motion'
 
 interface PostComposerProps {
   onPostCreated: (post: any) => void
@@ -60,43 +61,64 @@ export function PostComposer({ onPostCreated }: PostComposerProps) {
   }
 
   return (
-    <div className="p-4 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+    <div className="border-b border-border px-6 py-5">
       <div className="flex gap-4">
         {/* Avatar placeholder */}
-        <div className="w-12 h-12 bg-blue-200 dark:bg-blue-900 rounded-full flex-shrink-0"></div>
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/80 to-indigo-600 flex-shrink-0 flex items-center justify-center text-white font-bold shadow-soft-sm">
+          {address ? address.charAt(2).toUpperCase() : '?'}
+        </div>
 
         {/* Composer */}
-        <div className="flex-1">
+        <div className="flex-1 space-y-3">
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="What's on your mind?"
-            className="w-full text-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 bg-transparent resize-none focus:outline-none"
+            className="w-full text-lg text-foreground placeholder-muted-foreground bg-transparent resize-none focus:outline-none leading-relaxed"
             rows={3}
           />
 
           {error && (
-            <p className="text-red-600 dark:text-red-400 text-sm mt-2">{error}</p>
+            <motion.p
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-red-600 text-sm"
+            >
+              {error}
+            </motion.p>
           )}
 
           {/* Actions */}
-          <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+          <div className="flex items-center justify-between pt-3 border-t border-border">
             <div className="flex gap-2">
-              <button className="text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900 p-2 rounded-full transition">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="p-2 text-primary hover:bg-primary/10 rounded-xl transition-colors"
+              >
                 <ImageIcon className="w-5 h-5" />
-              </button>
-              <button className="text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900 p-2 rounded-full transition">
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="p-2 text-primary hover:bg-primary/10 rounded-xl transition-colors"
+              >
                 <Heart className="w-5 h-5" />
-              </button>
+              </motion.button>
             </div>
 
-            <Button
-              onClick={handlePost}
-              disabled={!content.trim() || isLoading}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              {isLoading ? 'Posting...' : 'Post'}
-            </Button>
+              <Button
+                onClick={handlePost}
+                disabled={!content.trim() || isLoading}
+                className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-full font-semibold transition-all shadow-soft-md hover:shadow-soft-lg"
+              >
+                {isLoading ? 'Posting...' : 'Post'}
+              </Button>
+            </motion.div>
           </div>
         </div>
       </div>

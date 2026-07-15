@@ -52,7 +52,7 @@ const trendingPosts = [
 
 export default function TrendingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 p-6">
+    <div className="min-h-screen bg-background p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
@@ -60,11 +60,11 @@ export default function TrendingPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-2">
+          <h1 className="text-4xl font-bold text-foreground flex items-center gap-2 mb-2">
             <TrendingUp className="w-8 h-8" />
             Trending
           </h1>
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-muted-foreground">
             The most engaging content from the OpenTruth community
           </p>
         </motion.div>
@@ -127,42 +127,45 @@ export default function TrendingPage() {
               variants={itemVariants}
               transition={{ delay: index * 0.05 }}
             >
-              <GlassCard className="p-6 cursor-pointer hover:bg-white/80 dark:hover:bg-slate-800/80 flex gap-6">
+              <GlassCard className="p-6 cursor-pointer hover:bg-white/80 flex gap-6">
                 {/* Rank */}
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="w-12 h-12 bg-gradient-to-br from-primary to-indigo-600 rounded-xl flex items-center justify-center shadow-soft-md"
+                  >
                     <span className="text-white font-bold text-lg">#{post.rank}</span>
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Content */}
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                <div className="flex-1 space-y-2">
+                  <p className="text-sm font-semibold text-muted-foreground">
                     {post.author}
                   </p>
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3">
+                  <h3 className="text-lg font-semibold text-foreground">
                     {post.title}
                   </h3>
-                  
+
                   {/* Engagement Stats */}
                   <div className="flex items-center gap-6 text-sm">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-slate-900 dark:text-white">
+                      <span className="font-semibold text-foreground">
                         {(post.engagement / 1000).toFixed(1)}K
                       </span>
-                      <span className="text-slate-600 dark:text-slate-400">engagement</span>
+                      <span className="text-muted-foreground">engagement</span>
                     </div>
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <div className="flex items-center gap-2 text-muted-foreground">
                       <span>{post.replies} replies</span>
                     </div>
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <div className="flex items-center gap-2 text-muted-foreground">
                       <span>{post.shares} shares</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Action */}
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 flex items-center">
                   <AnimatedButton variant="outline" size="sm">
                     View
                   </AnimatedButton>

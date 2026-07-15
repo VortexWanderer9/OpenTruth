@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useAccount, useDisconnect } from 'wagmi'
 import { motion } from 'framer-motion'
 import { Home, MessageCircle, Vote, User, LogOut, Settings, Sparkles } from 'lucide-react'
-import { fadeInLeft, fadeInUp } from '@/lib/design-system'
 
 export function Sidebar() {
   const { address } = useAccount()
@@ -23,24 +22,26 @@ export function Sidebar() {
 
   return (
     <motion.div
-      className="h-screen flex flex-col p-4 space-y-6"
-      variants={fadeInLeft}
-      initial="initial"
-      animate="animate"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      className="h-full flex flex-col p-5 space-y-6"
     >
       {/* Logo */}
       <motion.div
-        variants={fadeInUp}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.05 }}
         className="flex items-center gap-3"
       >
         <Link href="/" className="flex items-center gap-2 group">
           <motion.div
-            className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/50"
+            className="w-10 h-10 bg-gradient-to-br from-primary to-indigo-600 rounded-xl flex items-center justify-center shadow-soft-md"
             whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.95 }}
           >
             <span className="text-white font-bold text-lg">◎</span>
           </motion.div>
-          <span className="font-bold text-lg bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent group-hover:opacity-80 transition-opacity">
+          <span className="font-bold text-xl text-gradient group-hover:opacity-80 transition-opacity">
             OpenTruth
           </span>
         </Link>
@@ -51,18 +52,17 @@ export function Sidebar() {
         {navItems.map((item, index) => (
           <motion.div
             key={item.href}
-            variants={fadeInUp}
-            initial="initial"
-            animate="animate"
-            transition={{ delay: index * 0.05 }}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 + index * 0.05 }}
           >
             <Link
               href={item.href}
-              className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-white/10 rounded-xl transition-all duration-300 group relative overflow-hidden"
+              className="flex items-center gap-3 px-4 py-3.5 text-muted-foreground hover:text-foreground hover:bg-muted/60 rounded-xl transition-all duration-300 group relative overflow-hidden"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 to-indigo-600/0 group-hover:from-blue-600/10 group-hover:to-indigo-600/10 transition-all duration-300" />
-              <item.icon className="w-5 h-5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors relative z-10" />
-              <span className="group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors font-medium relative z-10">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/0 to-indigo-600/0 group-hover:from-primary/10 group-hover:to-indigo-600/10 transition-all duration-300" />
+              <item.icon className="w-5 h-5 group-hover:text-primary transition-colors relative z-10" />
+              <span className="group-hover:text-primary transition-colors font-medium relative z-10">
                 {item.label}
               </span>
             </Link>
@@ -72,23 +72,25 @@ export function Sidebar() {
 
       {/* User Profile Section */}
       <motion.div
-        className="space-y-3 border-t border-white/20 pt-4"
-        variants={fadeInUp}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35 }}
+        className="space-y-3 border-t border-border pt-4"
       >
         <motion.div
-          className="glass p-4 rounded-xl border border-white/20"
-          whileHover={{ y: -2 }}
+          className="glass p-4 rounded-xl shadow-soft-sm"
+          whileHover={{ y: -2, scale: 1.01 }}
         >
-          <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase tracking-wider">
+          <p className="text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wider">
             Connected
           </p>
-          <p className="text-sm font-mono text-blue-600 dark:text-blue-400 font-bold">{shortAddress}</p>
+          <p className="text-sm font-mono text-primary font-bold">{shortAddress}</p>
         </motion.div>
         <motion.button
           onClick={() => disconnect()}
-          className="w-full flex items-center gap-2 px-4 py-3 bg-red-100/50 dark:bg-red-900/50 text-red-600 dark:text-red-300 hover:bg-red-200/50 dark:hover:bg-red-800/50 rounded-xl transition text-sm font-semibold border border-red-200 dark:border-red-800"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
+          className="w-full flex items-center gap-2 px-4 py-3 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl transition text-sm font-semibold border border-red-100"
         >
           <LogOut className="w-4 h-4" />
           Disconnect

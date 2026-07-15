@@ -63,8 +63,8 @@ const typeColors = {
 
 export default function NotificationsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 p-6">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-background p-6">
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -72,11 +72,11 @@ export default function NotificationsPage() {
           className="mb-8 flex items-center justify-between"
         >
           <div>
-            <h1 className="text-4xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-2">
+            <h1 className="text-4xl font-bold text-foreground flex items-center gap-2 mb-2">
               <Bell className="w-8 h-8" />
               Notifications
             </h1>
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-muted-foreground">
               Stay updated with all your activities
             </p>
           </div>
@@ -102,29 +102,33 @@ export default function NotificationsPage() {
                 transition={{ delay: index * 0.05 }}
               >
                 <GlassCard
-                  className={`p-4 cursor-pointer flex items-start gap-4 ${
-                    !notification.read ? 'bg-white/80 dark:bg-slate-800/80' : ''
+                  className={`p-4 cursor-pointer flex items-start gap-4 transition-all hover:shadow-soft-sm ${
+                    !notification.read ? 'bg-primary/5' : ''
                   }`}
                 >
-                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0 shadow-soft-md`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
 
                   <div className="flex-1">
                     <div className="flex items-start justify-between">
-                      <div>
-                        <p className="font-semibold text-slate-900 dark:text-white">
+                      <div className="space-y-0.5">
+                        <p className="font-semibold text-foreground">
                           {notification.actor}
                         </p>
-                        <p className="text-slate-600 dark:text-slate-400 text-sm">
+                        <p className="text-muted-foreground text-sm">
                           {notification.action}
                         </p>
                       </div>
                       {!notification.read && (
-                        <div className="w-3 h-3 bg-blue-600 rounded-full flex-shrink-0 mt-1" />
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="w-3 h-3 bg-primary rounded-full flex-shrink-0 mt-1"
+                        />
                       )}
                     </div>
-                    <div className="flex items-center gap-2 mt-3 text-xs text-slate-500">
+                    <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
                       <Clock className="w-3 h-3" />
                       {notification.time}
                     </div>

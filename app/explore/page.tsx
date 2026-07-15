@@ -24,7 +24,8 @@ const communities = [
 
 export default function ExplorePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 p-6">
+  <>
+    <div className="min-h-screen bg-background p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -32,10 +33,10 @@ export default function ExplorePage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
             Explore
           </h1>
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-muted-foreground">
             Discover trending topics and communities
           </p>
         </motion.div>
@@ -48,11 +49,11 @@ export default function ExplorePage() {
           className="mb-12"
         >
           <GlassCard className="flex items-center gap-3 px-6 py-4">
-            <Search className="w-5 h-5 text-slate-400" />
+            <Search className="w-5 h-5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search topics, communities, or creators..."
-              className="flex-1 bg-transparent text-slate-900 dark:text-white placeholder-slate-500 outline-none"
+              className="flex-1 bg-transparent text-foreground placeholder-muted-foreground outline-none"
             />
           </GlassCard>
         </motion.div>
@@ -67,7 +68,7 @@ export default function ExplorePage() {
             animate="visible"
           >
             <motion.div variants={itemVariants} className="mb-6">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+              <h2 className="text-2xl font-bold text-foreground flex items-center gap-2 mb-4">
                 <TrendingUp className="w-6 h-6" />
                 Trending Topics
               </h2>
@@ -82,21 +83,21 @@ export default function ExplorePage() {
                   animate="visible"
                   transition={{ delay: index * 0.05 }}
                 >
-                  <GlassCard className="flex items-center justify-between p-4 cursor-pointer hover:bg-white/80 dark:hover:bg-slate-800/80">
+                  <GlassCard className="flex items-center justify-between p-4 cursor-pointer hover:bg-white/80">
                     <div className="flex items-center gap-3 flex-1">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 rounded-lg flex items-center justify-center">
-                        <Hash className="w-6 h-6 text-blue-600" />
+                      <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-indigo-600/20 rounded-xl flex items-center justify-center">
+                        <Hash className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-slate-900 dark:text-white">
+                        <h3 className="font-semibold text-foreground">
                           {topic.name}
                         </h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                        <p className="text-sm text-muted-foreground">
                           {topic.posts.toLocaleString()} posts
                         </p>
                       </div>
                     </div>
-                    <div className={`text-sm font-semibold ${topic.trend === 'up' ? 'text-green-600' : 'text-slate-600'}`}>
+                    <div className={`text-sm font-semibold ${topic.trend === 'up' ? 'text-green-600' : 'text-muted-foreground'}`}>
                       {topic.trend === 'up' ? '↑ Trending' : 'Stable'}
                     </div>
                   </GlassCard>
@@ -112,7 +113,7 @@ export default function ExplorePage() {
             animate="visible"
           >
             <motion.div variants={itemVariants} className="mb-6">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+              <h2 className="text-2xl font-bold text-foreground flex items-center gap-2 mb-4">
                 <Users className="w-6 h-6" />
                 Communities
               </h2>
@@ -127,18 +128,18 @@ export default function ExplorePage() {
                   animate="visible"
                   transition={{ delay: index * 0.05 }}
                 >
-                  <GlassCard className="p-4 cursor-pointer hover:bg-white/80 dark:hover:bg-slate-800/80">
+                  <GlassCard className="p-4 cursor-pointer hover:bg-white/80">
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-semibold text-slate-900 dark:text-white">
+                      <h3 className="font-semibold text-foreground">
                         {community.name}
                       </h3>
                       {community.verified && (
-                        <span className="text-xs font-bold text-blue-600 bg-blue-100 dark:bg-blue-900/30 px-2 py-1 rounded">
+                        <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">
                           Verified
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                    <p className="text-sm text-muted-foreground mb-4">
                       {community.members.toLocaleString()} members
                     </p>
                     <AnimatedButton variant="outline" size="sm" className="w-full">
@@ -151,6 +152,6 @@ export default function ExplorePage() {
           </motion.div>
         </div>
       </div>
-    </div>
+    </div></>
   )
 }
