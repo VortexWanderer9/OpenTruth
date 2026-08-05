@@ -21,18 +21,20 @@ export function GlassCard({
   onClick,
   ...motionProps
 }: GlassCardProps) {
+  const classes = clsx(
+    'glass rounded-2xl p-6 border border-white/20',
+    hoverable && 'cursor-pointer transition-all duration-300 hover:border-white/40 hover:shadow-lg',
+    className
+  )
+
   return (
     <motion.div
-      className={clsx(
-        'glass rounded-2xl p-6 border border-white/20',
-        hoverable && 'cursor-pointer transition-all duration-300 hover:border-white/40 hover:shadow-lg',
-        className
-      )}
+      className={classes}
       variants={animated ? fadeInUp : undefined}
       initial={animated ? 'initial' : undefined}
       animate={animated ? 'animate' : undefined}
       whileHover={hoverable ? hoverLift.whileHover : undefined}
-      transition={animated ? fadeInUp.transition : undefined}
+      transition={animated ? (fadeInUp.transition as any) : undefined}
       onClick={onClick}
       {...motionProps}
     >

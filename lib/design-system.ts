@@ -1,7 +1,5 @@
 // Premium design system utilities and animation presets for OpenTruth
 
-import { Variants } from 'framer-motion'
-
 export const COLORS = {
   // Primary palette - Blue/Indigo
   primary: {
@@ -112,28 +110,28 @@ export const BORDER_RADIUS = {
 }
 
 // Animation presets
-export const fadeInUp: Variants = {
+export const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: 20 },
   transition: { duration: 0.4, ease: 'easeOut' },
 }
 
-export const fadeInDown: Variants = {
+export const fadeInDown = {
   initial: { opacity: 0, y: -20 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -20 },
   transition: { duration: 0.4, ease: 'easeOut' },
 }
 
-export const fadeInLeft: Variants = {
+export const fadeInLeft = {
   initial: { opacity: 0, x: -20 },
   animate: { opacity: 1, x: 0 },
   exit: { opacity: 0, x: -20 },
   transition: { duration: 0.4, ease: 'easeOut' },
 }
 
-export const fadeInRight: Variants = {
+export const fadeInRight = {
   initial: { opacity: 0, x: 20 },
   animate: { opacity: 1, x: 0 },
   exit: { opacity: 0, x: 20 },

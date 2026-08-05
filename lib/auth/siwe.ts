@@ -42,7 +42,6 @@ export async function verifySiweMessage(
     const siweMessage = new SiweMessage(message)
     const fields = await siweMessage.verify({
       signature,
-      provider: undefined, // Would use ethers provider in real implementation
     })
     
     return {

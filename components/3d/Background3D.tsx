@@ -30,7 +30,7 @@ export function Background3D() {
 }
 
 function AnimatedBackground() {
-  const starsRef = useRef<THREE.Group>(null)
+  const starsRef = useRef<THREE.Points | null>(null)
 
   useFrame((state, delta) => {
     if (starsRef.current) {

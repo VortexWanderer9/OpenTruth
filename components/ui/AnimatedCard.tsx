@@ -27,19 +27,21 @@ export function AnimatedCard({
   variant = 'glass',
   ...motionProps
 }: AnimatedCardProps) {
+  const classes = clsx(
+    'rounded-xl p-6 transition-all duration-300',
+    variantClasses[variant],
+    hover && 'cursor-pointer hover:shadow-lg',
+    className
+  )
+
   return (
     <motion.div
-      className={clsx(
-        'rounded-xl p-6 transition-all duration-300',
-        variantClasses[variant],
-        hover && 'cursor-pointer hover:shadow-lg',
-        className
-      )}
+      className={classes}
       variants={animated ? fadeInUp : undefined}
       initial={animated ? 'initial' : undefined}
       animate={animated ? 'animate' : undefined}
       whileHover={hover ? hoverLift.whileHover : undefined}
-      transition={animated ? fadeInUp.transition : { duration: 0.2 }}
+      transition={animated ? (fadeInUp.transition as any) : { duration: 0.2 }}
       {...motionProps}
     >
       {children}

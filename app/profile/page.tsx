@@ -76,7 +76,7 @@ export default function ProfilePage() {
               className="w-32 h-32 bg-gradient-to-br from-primary to-indigo-600 rounded-full border-4 border-background flex items-center justify-center shadow-soft-lg"
             >
               <span className="text-5xl text-white font-bold">
-                {user.displayName.charAt(0).toUpperCase()}
+                {(user.displayName ?? 'U').charAt(0).toUpperCase()}
               </span>
             </motion.div>
             <div className="flex gap-2 mt-4">
