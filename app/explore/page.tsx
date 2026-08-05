@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, TrendingUp, Hash, Users } from 'lucide-react'
 import { GlassCard } from '@/components/ui/GlassCard'
@@ -23,6 +24,28 @@ const communities = [
 ]
 
 export default function ExplorePage() {
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const filteredTopics = useMemo(
+    () =>
+      topics.filter((topic) =>
+        `${topic.name} ${topic.posts}`
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
+      ),
+    [searchQuery]
+  )
+
+  const filteredCommunities = useMemo(
+    () =>
+      communities.filter((community) =>
+        `${community.name} ${community.members}`
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
+      ),
+    [searchQuery]
+  )
+
   return (
   <>
     <div className="min-h-screen bg-background p-6">
@@ -52,6 +75,8 @@ export default function ExplorePage() {
             <Search className="w-5 h-5 text-muted-foreground" />
             <input
               type="text"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
               placeholder="Search topics, communities, or creators..."
               className="flex-1 bg-transparent text-foreground placeholder-muted-foreground outline-none"
             />
@@ -75,7 +100,7 @@ export default function ExplorePage() {
             </motion.div>
 
             <div className="space-y-3">
-              {topics.map((topic, index) => (
+              {filteredTopics.map((topic, index) => (
                 <motion.div
                   key={topic.name}
                   variants={itemVariants}
@@ -120,7 +145,7 @@ export default function ExplorePage() {
             </motion.div>
 
             <div className="space-y-3">
-              {communities.map((community, index) => (
+              {filteredCommunities.map((community, index) => (
                 <motion.div
                   key={community.name}
                   variants={itemVariants}

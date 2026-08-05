@@ -140,14 +140,14 @@ export const fadeInRight = {
   transition: { duration: 0.4, ease: 'easeOut' },
 }
 
-export const scaleIn: Variants = {
+export const scaleIn = {
   initial: { opacity: 0, scale: 0.95 },
   animate: { opacity: 1, scale: 1 },
   exit: { opacity: 0, scale: 0.95 },
   transition: { duration: 0.3, ease: 'easeOut' },
 }
 
-export const staggerContainer: Variants = {
+export const staggerContainer = {
   animate: {
     transition: {
       staggerChildren: 0.1,
@@ -156,32 +156,32 @@ export const staggerContainer: Variants = {
   },
 }
 
-export const staggerItem: Variants = {
+export const staggerItem = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
 }
 
-export const rotateIn: Variants = {
+export const rotateIn = {
   initial: { opacity: 0, rotate: -10 },
   animate: { opacity: 1, rotate: 0 },
   exit: { opacity: 0, rotate: -10 },
   transition: { duration: 0.4, ease: 'easeOut' },
 }
 
-export const slideInFromLeft: Variants = {
+export const slideInFromLeft = {
   initial: { x: -100, opacity: 0 },
   animate: { x: 0, opacity: 1 },
   transition: { duration: 0.4, ease: 'easeOut' },
 }
 
-export const slideInFromRight: Variants = {
+export const slideInFromRight = {
   initial: { x: 100, opacity: 0 },
   animate: { x: 0, opacity: 1 },
   transition: { duration: 0.4, ease: 'easeOut' },
 }
 
 // Container animation for staggered children
-export const containerVariants: Variants = {
+export const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -193,7 +193,7 @@ export const containerVariants: Variants = {
 }
 
 // Item animation for use with container
-export const itemVariants: Variants = {
+export const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 }
