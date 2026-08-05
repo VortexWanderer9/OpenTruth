@@ -1,4 +1,4 @@
-import { Web3Storage } from 'web3.storage/dist/src/lib.js'
+import { Web3Storage } from 'web3.storage'
 import { IPFS_GATEWAYS } from './config'
 
 // Initialize Web3.Storage client
