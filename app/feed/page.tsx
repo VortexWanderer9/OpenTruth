@@ -1,7 +1,7 @@
 'use client'
 
 import { useAccount } from 'wagmi'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Sidebar } from '@/components/feed/Sidebar'
@@ -10,14 +10,15 @@ import { Recommendations } from '@/components/feed/Recommendations'
 
 export default function FeedPage() {
   const { address, isConnected } = useAccount()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (!isConnected || !address) {
-      redirect('/')
+      router.push('/')
     }
     setIsLoading(false)
-  }, [isConnected, address])
+  }, [isConnected, address, router])
 
   if (isLoading) {
     return (

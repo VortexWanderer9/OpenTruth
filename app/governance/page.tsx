@@ -1,7 +1,7 @@
 'use client'
 
 import { useAccount } from 'wagmi'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ThumbsUp, ThumbsDown, Users, Clock } from 'lucide-react'
@@ -52,15 +52,16 @@ const MOCK_PROPOSALS: Proposal[] = [
 
 export default function GovernancePage() {
   const { address, isConnected } = useAccount()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'active' | 'passed' | 'failed'>('all')
 
   useEffect(() => {
     if (!isConnected || !address) {
-      redirect('/')
+      router.push('/')
     }
     setIsLoading(false)
-  }, [isConnected, address])
+  }, [isConnected, address, router])
 
   if (isLoading) {
     return (

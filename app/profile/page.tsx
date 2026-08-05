@@ -1,21 +1,22 @@
 'use client'
 
 import { useAccount } from 'wagmi'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, MapPin, Link as LinkIcon, Zap, TrendingUp } from 'lucide-react'
 
 export default function ProfilePage() {
   const { address, isConnected } = useAccount()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (!isConnected || !address) {
-      redirect('/')
+      router.push('/')
     }
     setIsLoading(false)
-  }, [isConnected, address])
+  }, [isConnected, address, router])
 
   if (isLoading) {
     return (

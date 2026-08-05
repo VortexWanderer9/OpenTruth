@@ -1,5 +1,7 @@
 // Premium design system utilities and animation presets for OpenTruth
 
+import type { Variants } from 'framer-motion'
+
 export const COLORS = {
   // Primary palette - Blue/Indigo
   primary: {

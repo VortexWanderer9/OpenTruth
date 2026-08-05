@@ -49,7 +49,6 @@ function AnimatedBackground() {
       saturation={0}
       fade
       speed={1}
-      color="#2563eb"
     />
   )
 }

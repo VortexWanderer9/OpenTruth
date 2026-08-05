@@ -2,7 +2,7 @@
 
 import { useAccount } from 'wagmi'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
@@ -15,12 +15,13 @@ import { Shield, Star, Vote, FileText, Link2, Zap } from 'lucide-react'
 
 export default function HomePage() {
   const { address, isConnected } = useAccount()
+  const router = useRouter()
 
   useEffect(() => {
     if (isConnected && address) {
-      redirect('/feed')
+      router.push('/feed')
     }
-  }, [isConnected, address])
+  }, [isConnected, address, router])
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 overflow-hidden">
